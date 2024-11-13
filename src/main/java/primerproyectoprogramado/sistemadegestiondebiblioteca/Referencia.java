@@ -2,6 +2,8 @@
 package primerproyectoprogramado.sistemadegestiondebiblioteca;
 
 import PaqueteExepciones.OperacionNoPermitidaException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Referencia extends Libro{
     
@@ -28,5 +30,6 @@ public final class Referencia extends Libro{
     public final void mostrarInformacionEspecial() { // Método final específico de Referencia
         System.out.println("Este es un libro de referencia especial.");
     }
-
+    
+    
 }

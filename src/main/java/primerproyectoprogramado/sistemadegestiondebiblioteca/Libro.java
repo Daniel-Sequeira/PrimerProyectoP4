@@ -17,6 +17,10 @@ public class Libro extends ElementoBiblioteca implements Prestable {
         this.isbn = isbn;
         this.estado = EstadoLibro.DISPONIBLE;
     }
+    
+    public String getTitulo() {
+        return titulo;
+    }
 
     public String getAutor() {
         return autor;

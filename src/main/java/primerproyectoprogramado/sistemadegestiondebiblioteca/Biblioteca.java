@@ -3,7 +3,7 @@ package primerproyectoprogramado.sistemadegestiondebiblioteca;
 import java.util.*;
 
 public class Biblioteca {
-    private static final ArrayList<Libro> libros = new ArrayList<>();
+    private static final List<Libro> libros = new ArrayList<>();
     private static final Set<Usuario> usuarios = new HashSet<>();
     private static final Stack<Prestamo> prestamos = new Stack<>();
     private static final HashMap<String, Libro> librosIsbn = new HashMap<>();
@@ -42,11 +42,9 @@ public class Biblioteca {
         }
     }
     
-    public static void mostrarLibros(){
-        System.out.println("Lista de Libros ");
-        for(Libro libro : libros){
-            System.out.println(libro);
-        }
+      // Método para obtener la lista de libros
+    public static List<Libro> obtenerLibros() {
+        return new ArrayList<>(libros); // Se devuelve una copia de la lista para proteger los datos originales
     }
     
     public static void mostrarPrestamos(){

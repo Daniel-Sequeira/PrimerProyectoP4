@@ -3,22 +3,23 @@ package primerproyectoprogramado.sistemadegestiondebiblioteca;
 
 import PaqueteExepciones.LibroNoDisponibleException;
 import PaqueteExepciones.OperacionNoPermitidaException;
-import Vistas.Login;
+
 import Vistas.BibliotecaGUI;
 
 
 public class SistemaDeGestionDeBiblioteca {
     
-    public static void inicializarGui(){
-        //Se crea la instancia de la clase login, se invoca como visible y su posicion que no tenga referencia a nada para que se muestre en el centro
-       BibliotecaGUI gui = new BibliotecaGUI();
-       gui.setVisible(true);
-       gui.setSize(800, 600);
-       gui.setLocationRelativeTo(null);
+    public static void inicializarBiblioteca(){
+        //Se crea la instancia de la clase BibliotecaGUI, se invoca como visible y su posicion que no tenga referencia a nada para que se muestre en el centro
+       BibliotecaGUI BibliotecaGUI = new BibliotecaGUI();
+       BibliotecaGUI.setVisible(true);
+       BibliotecaGUI.setSize(1100, 600);
+       BibliotecaGUI.setLocationRelativeTo(null);
+       
     }
 
     public static void main(String[] args) {
-        inicializarGui();
+       
         //Crear libros 
         Libro libro1 = new Libro("Harry Potter y La Piedra Filosofal","J.K Rowling","9788498382662");
         Libro libro2 = new Libro("Habitos Atomicos","James Clear","9788418118036");
@@ -31,7 +32,9 @@ public class SistemaDeGestionDeBiblioteca {
         Biblioteca.agregarLibro(libro3);
         Biblioteca.agregarUsuario(usuario1);
         
-        Biblioteca.mostrarLibros();
+        inicializarBiblioteca();
+        
+        Biblioteca.obtenerLibros();
         Biblioteca.realizarPrestamo(libro1, usuario1);
         Biblioteca.realizarPrestamo(libro2, usuario1);
 
