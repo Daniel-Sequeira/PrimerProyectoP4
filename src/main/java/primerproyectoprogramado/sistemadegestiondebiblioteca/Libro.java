@@ -62,6 +62,10 @@ public class Libro extends ElementoBiblioteca implements Prestable {
     public void mostrarInformacion() {
         System.out.println("Título: " + titulo + ", Autor: " + autor + ", ISBN: " + isbn + ", Estado: " + estado);
     }
-
+    
+    @Override
+    public String toString() {
+        return getTitulo() + " - " + getAutor() + " (ISBN: " + getIsbn() + ")";
+    }
     
 }

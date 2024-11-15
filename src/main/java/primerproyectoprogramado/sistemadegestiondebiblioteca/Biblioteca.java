@@ -7,6 +7,18 @@ public class Biblioteca {
     private static final Set<Usuario> usuarios = new HashSet<>();
     private static final Stack<Prestamo> prestamos = new Stack<>();
     private static final HashMap<String, Libro> librosIsbn = new HashMap<>();
+    private static Set<Referencia> librosDeReferencia = new HashSet<>();
+    
+    
+    // Método para agregar un libro de referencia
+    public static void agregarLibroDeReferencia(Referencia libro) {
+        librosDeReferencia.add(libro);
+    }
+    
+    // Método para obtener la lista de libros de referencia
+    public static Set<Referencia> getLibrosDeReferencia() {
+        return librosDeReferencia;
+    }
     
     public static void agregarLibro(Libro libro){
         libros.add(libro);
@@ -33,7 +45,7 @@ public class Biblioteca {
         }
     }
     
-    public static void devolverlibro(Libro libro){
+    public static void devolverLibro(Libro libro){
          try {
             libro.devolver();
             System.out.println("Libro devuelto: " + libro);
@@ -47,11 +59,13 @@ public class Biblioteca {
         return new ArrayList<>(libros); // Se devuelve una copia de la lista para proteger los datos originales
     }
     
-    public static void mostrarPrestamos(){
-        System.out.println("Historial de préstamos:");
-        for (Prestamo prestamo : prestamos) {
-            System.out.println(prestamo);
-        }
+    public static List<Prestamo> mostrarPrestamos(){
+        return new ArrayList<>(prestamos);
     }
+    
+    public static Set<Usuario> getUsuarios() {
+    // Devuelve el conjunto de usuarios registrados en la biblioteca
+    return usuarios; // Asegúrate de usar el nombre correcto de tu colección
+}
     
 }

@@ -1,20 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vistas;
 
-/**
- *
- * @author Daniel
- */
-public class AgregarLibro extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AgregarLibro
+import primerproyectoprogramado.sistemadegestiondebiblioteca.Biblioteca;
+import primerproyectoprogramado.sistemadegestiondebiblioteca.Libro;
+import javax.swing.JDialog;
+ /**
+     * Clase AgregarLibro que permite agregar libros a la biblioteca y actualiza la interfaz de BibliotecaGUI.
      */
-    public AgregarLibro() {
+public class AgregarLibro extends JDialog {
+private BibliotecaGUI bibliotecaGUI; // Referencia a la instancia de BibliotecaGUI
+    // Constructor que recibe la instancia de BibliotecaGUI
+    public AgregarLibro(BibliotecaGUI bibliotecaGUI) {
+        this.bibliotecaGUI = bibliotecaGUI;
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         initComponents();
+       
     }
 
     /**
@@ -37,7 +36,7 @@ public class AgregarLibro extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+       setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         lblTituloAgregarLibro.setFont(new java.awt.Font("Viner Hand ITC", 1, 18)); // NOI18N
         lblTituloAgregarLibro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -60,6 +59,11 @@ public class AgregarLibro extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,45 +133,33 @@ public class AgregarLibro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+      //capturar y asignar el contenido de cajas de texto a sus variables.
        String titulo = txtTituloLibro.getText();
        String autor = txtAutor.getText();
        String isbn = txtIsbn.getText();
+       //Crear el objeto Libro y agregar a la biblioteca
+       Libro libro = new Libro(titulo,autor,isbn);
+       Biblioteca.agregarLibro(libro);
+       //Limpiar las cajas de texto
+       txtTituloLibro.setText("");
+       txtAutor.setText("");
+       txtIsbn.setText("");
+       // Llamar al método de actualización de la tabla en la instancia de BibliotecaGUI
+        if (bibliotecaGUI != null) {
+            bibliotecaGUI.actualizarTablaLibros();
+        }
+       //Cierre de la ventana al completar sin cerrar todo el programa
+      dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AgregarLibro().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

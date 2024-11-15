@@ -2,8 +2,7 @@
 package primerproyectoprogramado.sistemadegestiondebiblioteca;
 
 import PaqueteExepciones.OperacionNoPermitidaException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public final class Referencia extends Libro{
     

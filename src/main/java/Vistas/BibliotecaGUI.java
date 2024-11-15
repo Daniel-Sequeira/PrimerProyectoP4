@@ -2,21 +2,21 @@
 package Vistas;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.Set;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Biblioteca;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Libro;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Referencia;
+import Vistas.GestionPrestamos;
 
 public class BibliotecaGUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form BibliotecaGUI
-     */
     public BibliotecaGUI() {
         initComponents();
         actualizarTablaLibros();
+        actualizarTablaLibrosReferencia();
     }
 
-    private void actualizarTablaLibros(){
+    public void actualizarTablaLibros(){
         //Obtener el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) tblLibros.getModel();
         //Limpiar el modelo de la tabla
@@ -26,6 +26,26 @@ public class BibliotecaGUI extends javax.swing.JFrame {
         
          // Añadir cada libro al modelo de la tabla
         for (Libro libro : libros) {
+            Object[] fila = {
+                libro.getTitulo(),
+                libro.getAutor(),
+                libro.getIsbn(),
+                libro.getEstado()
+            };
+            model.addRow(fila);
+        }
+    }
+    
+    public void actualizarTablaLibrosReferencia(){
+        //Obtener el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) tblLibrosReferencia.getModel();
+        //Limpiar el modelo de la tabla
+        model.setRowCount(0);
+        //Obtener lista de libros de la clase biblioteca
+        Set<Referencia> librosDeReferencia = Biblioteca.getLibrosDeReferencia();
+        
+         // Añadir cada libro al modelo de la tabla
+        for (Referencia libro : librosDeReferencia) {
             Object[] fila = {
                 libro.getTitulo(),
                 libro.getAutor(),
@@ -55,8 +75,7 @@ public class BibliotecaGUI extends javax.swing.JFrame {
         tblLibrosReferencia = new javax.swing.JTable();
         lblLibrosRef = new javax.swing.JLabel();
         pnlInferior = new javax.swing.JPanel();
-        btnPrestamo = new javax.swing.JButton();
-        btnDevolucion = new javax.swing.JButton();
+        btnGestionarPrestamos = new javax.swing.JButton();
         btnAgregarLibro = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -101,7 +120,7 @@ public class BibliotecaGUI extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "TITULO", "AUTOR", "ISBN", "ESTADO"
             }
         ));
         jScrollPane2.setViewportView(tblLibrosReferencia);
@@ -143,9 +162,12 @@ public class BibliotecaGUI extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        btnPrestamo.setText("Préstamo");
-
-        btnDevolucion.setText("Devolución");
+        btnGestionarPrestamos.setText("Gestionar Préstamos");
+        btnGestionarPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionarPrestamosActionPerformed(evt);
+            }
+        });
 
         btnAgregarLibro.setText("Agregar Libro");
         btnAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
@@ -171,9 +193,7 @@ public class BibliotecaGUI extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(btnAgregarLibro)
                 .addGap(68, 68, 68)
-                .addComponent(btnPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(btnDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGestionarPrestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77))
@@ -183,9 +203,8 @@ public class BibliotecaGUI extends javax.swing.JFrame {
             .addGroup(pnlInferiorLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(pnlInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGestionarPrestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
@@ -201,6 +220,11 @@ public class BibliotecaGUI extends javax.swing.JFrame {
         jmUsuarios.add(jmRegistrarUsuarios);
 
         jmMostrarUsuarios.setText("Mostrar");
+        jmMostrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmMostrarUsuariosActionPerformed(evt);
+            }
+        });
         jmUsuarios.add(jmMostrarUsuarios);
 
         jMenuBar1.add(jmUsuarios);
@@ -208,6 +232,11 @@ public class BibliotecaGUI extends javax.swing.JFrame {
         jmPrestamos.setText("Préstamos");
 
         jmHistorial.setText("Historial");
+        jmHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHistorialActionPerformed(evt);
+            }
+        });
         jmPrestamos.add(jmHistorial);
 
         jMenuBar1.add(jmPrestamos);
@@ -240,8 +269,8 @@ public class BibliotecaGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLibroActionPerformed
-       AgregarLibro agregaLibro = new AgregarLibro(); 
-            agregaLibro.setVisible(true);
+       AgregarLibro agregarLibroDialog = new AgregarLibro(this); 
+            agregarLibroDialog.setVisible(true);
     }//GEN-LAST:event_btnAgregarLibroActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -249,14 +278,32 @@ public class BibliotecaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void jmRegistrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRegistrarUsuariosActionPerformed
-        // TODO add your handling code here:
+        AgregarUsuario agregarUsuarioDialog = new AgregarUsuario();
+        agregarUsuarioDialog.setVisible(true);
     }//GEN-LAST:event_jmRegistrarUsuariosActionPerformed
+
+    private void jmMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmMostrarUsuariosActionPerformed
+        ListaUsuarios listaUsuariosDialog = new ListaUsuarios();
+        listaUsuariosDialog.setVisible(true);
+    }//GEN-LAST:event_jmMostrarUsuariosActionPerformed
+
+    private void btnGestionarPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarPrestamosActionPerformed
+           // Crear y mostrar el diálogo de gestión de préstamos
+        GestionPrestamos gestionPrestamosDialog = new GestionPrestamos(this);
+        gestionPrestamosDialog.setVisible(true);
+        
+        // Actualizar las tablas después de realizar el préstamo
+        actualizarTablaLibros();
+    }//GEN-LAST:event_btnGestionarPrestamosActionPerformed
+
+    private void jmHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistorialActionPerformed
+      
+    }//GEN-LAST:event_jmHistorialActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarLibro;
-    private javax.swing.JButton btnDevolucion;
-    private javax.swing.JButton btnPrestamo;
+    private javax.swing.JButton btnGestionarPrestamos;
     private javax.swing.JButton btnSalir;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
