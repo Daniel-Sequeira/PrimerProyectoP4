@@ -8,16 +8,23 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Biblioteca;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Libro;
+import primerproyectoprogramado.sistemadegestiondebiblioteca.Referencia;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Usuario;
+
+/**
+ * Clase GestionPrestamos que proporciona una ventana emergente (JDialog)
+ * para gestionar los préstamos y devoluciones de libros en la biblioteca.
+ * Permite seleccionar un usuario y un libro y realizar un préstamo o devolución.
+ */
 
 public class GestionPrestamos extends JDialog {
    
-    
+    //Constructor de la clase GestionPrestamos.
     public GestionPrestamos(JFrame parent) {
-        super(parent, "Gestión de Préstamos", true);
+        super(parent, "Gestión de Préstamos", true);// Configura el diálogo como modal y define titulo
         setLocationRelativeTo(parent);
         initComponents();
-        cargarDatos();
+        cargarDatos();// Carga los datos de usuarios y libros
       
     }
 
@@ -129,48 +136,61 @@ public class GestionPrestamos extends JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     
+     /**
+     * Método que se ejecuta cuando se presiona el botón "Realizar Préstamo".
+     * Obtiene el usuario y el libro seleccionados, y realiza el préstamo.*/
     private void btnRealizarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPrestamoActionPerformed
        Usuario usuario = (Usuario)cbUsuarios.getSelectedItem();
        Libro libro = (Libro)cbLibros.getSelectedItem();
         if (usuario != null && libro != null) {
-            Biblioteca.realizarPrestamo(libro, usuario);
+            Biblioteca.realizarPrestamo(libro, usuario,this);
         }
         dispose(); 
     }//GEN-LAST:event_btnRealizarPrestamoActionPerformed
-
+//Cierra la ventana sin realizar ninguna acción.
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
          dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
+/**
+     * Método que se ejecuta cuando se presiona el botón "Realizar Devolución".
+     * Obtiene el libro seleccionado y realiza la devolución.*/
     private void btnRealizarDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarDevolucionActionPerformed
        
        Libro libro = (Libro)cbLibros.getSelectedItem();
         
        if (libro != null ) {
-            Biblioteca.devolverLibro(libro);
+            Biblioteca.devolverLibro(libro,this);// Realizar la devolución a través de la clase Biblioteca
         }
        dispose(); 
     }//GEN-LAST:event_btnRealizarDevolucionActionPerformed
          
     private void cargarDatos() {
+    // Obtener el modelo actual del combo box para los usuarios
+    // Un DefaultComboBoxModel se utiliza para manejar los elementos que se mostrarán en el combo box
      // Obtener el modelo actual del combo box
     DefaultComboBoxModel modelUsuarios = (DefaultComboBoxModel) cbUsuarios.getModel();
     DefaultComboBoxModel modelLibros = (DefaultComboBoxModel) cbLibros.getModel();
-    // Limpiar el modelo existente (opcional)
+    // Limpiar el modelo existente (opcional)asegura que los combo boxes no tengan elementos duplicados
     modelUsuarios.removeAllElements();
      modelLibros.removeAllElements();
-        // Cargar usuarios en combo box
+        // Cargar usuarios  y añadirlos al combo box
+    // La clase Biblioteca tiene un método getUsuarios() que devuelve un conjunto (Set) de usuarios
         Set<Usuario> usuarios = Biblioteca.getUsuarios();
+        // Recorremos cada libro en la lista y lo añadimos al modelo del combo box
     for (Usuario usuario : usuarios) {
         modelUsuarios.addElement(usuario); // Añadir el objeto Usuario al modelo
     }
        
-    // Cargar libros disponibles en la lista
+    // Cargar libros disponibles en la lista ademas de libros de referencia
          List<Libro> libros = Biblioteca.obtenerLibros();
      for (Libro libro : libros) {
     modelLibros.addElement(libro); 
     }
+         Set<Referencia> librosDeReferencia = Biblioteca.getLibrosDeReferencia();
+         // Añadir cada libro al modelo de la tabla
+        for (Referencia libro : librosDeReferencia) {
+            modelLibros.addElement(libro);    
+        }
     // Asignar los modelos a los combo boxes
     cbUsuarios.setModel(modelUsuarios);
     cbLibros.setModel(modelLibros);        

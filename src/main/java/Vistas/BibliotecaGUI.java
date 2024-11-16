@@ -8,14 +8,26 @@ import primerproyectoprogramado.sistemadegestiondebiblioteca.Libro;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Referencia;
 import Vistas.GestionPrestamos;
 
-public class BibliotecaGUI extends javax.swing.JFrame {
+/**
+ * Clase BibliotecaGUI que proporciona la interfaz gráfica principal para gestionar
+ * la biblioteca. Permite visualizar, agregar y gestionar libros, libros de referencia
+ * y realizar préstamos.
+ */
 
+public class BibliotecaGUI extends javax.swing.JFrame {
+ /**
+     * Constructor de la clase BibliotecaGUI.
+     * Inicializa los componentes de la interfaz y actualiza las tablas de libros y referencias.
+     */
     public BibliotecaGUI() {
         initComponents();
         actualizarTablaLibros();
         actualizarTablaLibrosReferencia();
     }
-
+ /**
+     * Método que actualiza la tabla de libros con los datos de la biblioteca.
+     * Se obtienen todos los libros de la clase Biblioteca y se muestran en la tabla.
+     */
     public void actualizarTablaLibros(){
         //Obtener el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) tblLibros.getModel();
@@ -35,7 +47,10 @@ public class BibliotecaGUI extends javax.swing.JFrame {
             model.addRow(fila);
         }
     }
-    
+    /**
+     * Método que actualiza la tabla de libros de referencia.
+     * Se obtienen todos los libros de referencia de la clase Biblioteca y se muestran en la tabla.
+     */
     public void actualizarTablaLibrosReferencia(){
         //Obtener el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) tblLibrosReferencia.getModel();
@@ -267,26 +282,41 @@ public class BibliotecaGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Método que se ejecuta al hacer clic en "Agregar Libro".
+     * Abre el diálogo para agregar un nuevo libro.
+     */
     private void btnAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLibroActionPerformed
        AgregarLibro agregarLibroDialog = new AgregarLibro(this); 
             agregarLibroDialog.setVisible(true);
     }//GEN-LAST:event_btnAgregarLibroActionPerformed
-
+ /**
+     * Método que se ejecuta al hacer clic en "Salir".
+     * Cierra la aplicación.
+     */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
-
+ /**
+     * Método que se ejecuta al hacer clic en "Registrar Usuarios" en el menú.
+     * Abre el diálogo para registrar un nuevo usuario.
+     */
     private void jmRegistrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRegistrarUsuariosActionPerformed
         AgregarUsuario agregarUsuarioDialog = new AgregarUsuario();
         agregarUsuarioDialog.setVisible(true);
     }//GEN-LAST:event_jmRegistrarUsuariosActionPerformed
-
+ /**
+     * Método que se ejecuta al hacer clic en "Mostrar Usuarios" en el menú.
+     * Abre el diálogo para mostrar la lista de usuarios.
+     */
     private void jmMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmMostrarUsuariosActionPerformed
         ListaUsuarios listaUsuariosDialog = new ListaUsuarios();
         listaUsuariosDialog.setVisible(true);
     }//GEN-LAST:event_jmMostrarUsuariosActionPerformed
-
+/**
+     * Método que se ejecuta al hacer clic en "Gestionar Préstamos".
+     * Abre el diálogo de gestión de préstamos y actualiza la tabla de libros.
+     */
     private void btnGestionarPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarPrestamosActionPerformed
            // Crear y mostrar el diálogo de gestión de préstamos
         GestionPrestamos gestionPrestamosDialog = new GestionPrestamos(this);
@@ -295,9 +325,13 @@ public class BibliotecaGUI extends javax.swing.JFrame {
         // Actualizar las tablas después de realizar el préstamo
         actualizarTablaLibros();
     }//GEN-LAST:event_btnGestionarPrestamosActionPerformed
-
+ /**
+     * Método que se ejecuta al hacer clic en "Historial" en el menú de préstamos.
+     * Abre el diálogo para mostrar el historial de préstamos.
+     */
     private void jmHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistorialActionPerformed
-      
+      HistorialPrestamos historialPrestamosDialog = new HistorialPrestamos(this);
+      historialPrestamosDialog.setVisible(true);
     }//GEN-LAST:event_jmHistorialActionPerformed
 
    

@@ -1,6 +1,7 @@
 Vistas\HistorialPrestamos$1.class
 Vistas\BibliotecaGUI.class
 Vistas\BibliotecaGUI$5.class
+Vistas\AgregarLibro$4.class
 PaqueteExepciones\LibroNoDisponibleException.class
 Vistas\BibliotecaGUI$3.class
 Vistas\ListaUsuarios.class
@@ -29,4 +30,5 @@ Vistas\AgregarUsuario$1.class
 primerproyectoprogramado\sistemadegestiondebiblioteca\EstadoLibro.class
 Vistas\BibliotecaGUI$2.class
 primerproyectoprogramado\sistemadegestiondebiblioteca\SistemaDeGestionDeBiblioteca.class
+Vistas\AgregarLibro$3.class
 Vistas\AgregarLibro.class

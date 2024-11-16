@@ -3,7 +3,7 @@ package primerproyectoprogramado.sistemadegestiondebiblioteca;
 
 import PaqueteExepciones.OperacionNoPermitidaException;
 
-
+//Clase que maneja los libros que son de referencia o sea que no se prestan esta hereda de libro
 public final class Referencia extends Libro{
     
     public Referencia(String titulo, String autor,String isbn){

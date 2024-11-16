@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package Vistas;
 
 import javax.swing.JDialog;
@@ -9,13 +6,15 @@ import primerproyectoprogramado.sistemadegestiondebiblioteca.Biblioteca;
 import primerproyectoprogramado.sistemadegestiondebiblioteca.Usuario;
 
 /**
- *
- * @author Daniel
+ * Clase AgregarUsuario a la biblioteca que proporciona una ventana tipo (JDialog)
+ * Permite al usuario ingresar el nombre, el ID y el tipo de usuario.
+ * Al presionar "Guardar", el usuario se agrega a la lista de usuarios en la biblioteca.
  */
 public class AgregarUsuario extends JDialog {
 
-    /**
-     * Creates new form AgregarUsuario
+     /**
+     * Constructor de la clase AgregarUsuario.
+     * Configura las propiedades de la ventana, como el título, tamaño y ubicación.
      */
     public AgregarUsuario() {
         setTitle("Agregar Usuario");
@@ -150,6 +149,10 @@ public class AgregarUsuario extends JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     /**
+     * Método que se ejecuta cuando el botón "Guardar" es presionado.
+     * Captura los datos ingresados, crea un objeto Usuario y lo agrega a la biblioteca.
+     */
     private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
          //capturar y asignar el contenido de cajas de texto a sus variables.
          String nombre = txtNombre.getText();
@@ -157,7 +160,7 @@ public class AgregarUsuario extends JDialog {
          String tipo = txtTipo.getText();
          //Crear el objeto Usuario y agregar a la Lista
          Usuario usuario = new Usuario(nombre,idUsuario, tipo);
-         Biblioteca.agregarUsuario(usuario);
+         Biblioteca.agregarUsuario(usuario,this);
          //Limpiar campos de texto
          txtNombre.setText("");
          txtIdUsuario.setText("");
@@ -165,6 +168,10 @@ public class AgregarUsuario extends JDialog {
          dispose();
     }//GEN-LAST:event_btnGuardarUsuarioActionPerformed
 
+     /**
+     * Método que se ejecuta cuando el botón "Cancelar" es presionado.
+     * Cierra la ventana de diálogo sin realizar ninguna acción.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed

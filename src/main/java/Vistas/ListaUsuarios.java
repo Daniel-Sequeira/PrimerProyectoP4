@@ -14,7 +14,7 @@ import primerproyectoprogramado.sistemadegestiondebiblioteca.Usuario;
 public class ListaUsuarios extends JDialog {
 
     /**
-     * Creates new form ListaUsuarios
+     * Despliga datos de usuarios registrados, por defecto se generan dos pero se pueden agregar mas
      */
     public ListaUsuarios() {
         setTitle("Usuarios Registrados");
